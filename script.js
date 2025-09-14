@@ -1,6 +1,19 @@
 alert("Welcome to rock paper scissors");
 playGame();
 
+const rock = document.querySelector("#rock");
+const paper = document.querySelector("#paper");
+const scissors = document.querySelector("#scissors");
+
+rock.addEventListener("click", (e) => 
+    playRound(e.target.textContent.toLowerCase, getComputerChoice));
+paper.addEventListener("click", (e) => 
+    playRound(e.target.textContent.toLowerCase, getComputerChoice));
+scissors.addEventListener("click", (e) => 
+    playRound(e.target.textContent.toLowerCase, getComputerChoice));
+
+
+
 function getComputerChoice() {
     //Rock = 0, Paper = 1, Scissors = 2
     let choice = Math.floor(Math.random() * 3);
@@ -15,33 +28,22 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let choice = prompt("Please type: Rock, Paper, or Scissors");
-
-    // Lowercase human's choice and return
-    return choice.toLowerCase();
-}
-
 // Returns -1 on tie or invalid round, 0 on computer win, 1 on human win
 function playRound(human, computer) {
-    // Bad input
-    if(human != "rock" && human != "paper" && human != "scissors"){
-        alert("Invalid choice, continuing to next round.");
-        return -1;
     // Tie
-    } else if (human == computer) {
+    if (human === computer) {
         alert("Tie, you both chose " + human + "!");
         return -1;
-    } else if (human == "rock") {
-        if (computer == "paper") {
+    } else if (human === "rock") {
+        if (computer === "paper") {
             alert("You lose! Paper beats Rock.");
             return 0;
         } else {
             alert("You win! Rock beats Scissors.");
             return 1;
         }
-    } else if (human == "paper") {
-        if (computer == "scissors") {
+    } else if (human === "paper") {
+        if (computer === "scissors") {
             alert("You lose! Scissors beats Paper.");
             return 0;
         } else {
@@ -49,7 +51,7 @@ function playRound(human, computer) {
             return 1;
         }
     } else {
-        if (computer == "rock") {
+        if (computer === "rock") {
                 alert("You lose! Rock beats Scisosrs.");
             return 0;
         } else {
@@ -82,20 +84,20 @@ function playGame() {
         let roundWinner = playRound(human, computer);
 
         // Update points
-        if (roundWinner == 0) {
+        if (roundWinner === 0) {
             computerScore++;
-        } else if (roundWinner == 1) {
+        } else if (roundWinner === 1) {
             humanScore++;
         }
 
-        if(computerScore == 3 || humanScore == 3) {
+        if(computerScore === 3 || humanScore === 3) {
             keepGoing = false;
         }
 
         alert("Scores are human: " + humanScore + " and computer: " + computerScore);
     }      
 
-    if (humanScore == 3) {
+    if (humanScore === 3) {
         alert("Congratulations! You win!");
     } else {
         alert("Sorry! You lose!");
