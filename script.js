@@ -1,18 +1,19 @@
-alert("Welcome to rock paper scissors");
-playGame();
+const announcement = document.getElementById("announcement");
+announcement.textContent = "Rock-Paper-Scissors";
+// playGame();
 
-const rock = document.querySelector("#rock");
-const paper = document.querySelector("#paper");
-const scissors = document.querySelector("#scissors");
+const rock = document.getElementById("rock");
+const paper = document.getElementById("paper");
+const scissors = document.getElementById("scissors");
+const opponent = document.getElementById("opponent");
+const player = document.getElementById("player");
 
 rock.addEventListener("click", (e) => 
-    playRound(e.target.textContent.toLowerCase, getComputerChoice));
+    playRound(e.target.textContent.toLowerCase(), getComputerChoice()));
 paper.addEventListener("click", (e) => 
-    playRound(e.target.textContent.toLowerCase, getComputerChoice));
+    playRound(e.target.textContent.toLowerCase(), getComputerChoice()));
 scissors.addEventListener("click", (e) => 
-    playRound(e.target.textContent.toLowerCase, getComputerChoice));
-
-
+    playRound(e.target.textContent.toLowerCase(), getComputerChoice()));
 
 function getComputerChoice() {
     //Rock = 0, Paper = 1, Scissors = 2
@@ -32,74 +33,41 @@ function getComputerChoice() {
 function playRound(human, computer) {
     // Tie
     if (human === computer) {
-        alert("Tie, you both chose " + human + "!");
+        announcement.textContent = "Tie, you both chose " + human + "!";
         return -1;
     } else if (human === "rock") {
         if (computer === "paper") {
-            alert("You lose! Paper beats Rock.");
-            return 0;
+            announcement.textContent = "You lose! Paper beats Rock.";
+            opponent.textContent = Number(opponent.textContent) + 1;
         } else {
-            alert("You win! Rock beats Scissors.");
-            return 1;
+            announcement.textContent = "You win! Rock beats Scissors.";
+            player.textContent = Number(player.textContent) + 1;
         }
     } else if (human === "paper") {
         if (computer === "scissors") {
-            alert("You lose! Scissors beats Paper.");
-            return 0;
+            announcement.textContent = "You lose! Scissors beats Paper.";
+            opponent.textContent = Number(opponent.textContent) + 1;
         } else {
-            alert("You win! Paper beats Rock.");
-            return 1;
+            announcement.textContent = "You win! Paper beats Rock.";
+            player.textContent = Number(player.textContent) + 1;
         }
     } else {
         if (computer === "rock") {
-                alert("You lose! Rock beats Scisosrs.");
-            return 0;
+                announcement.textContent = "You lose! Rock beats Scissors.";
+            opponent.textContent = Number(opponent.textContent) + 1;
         } else {
-            alert("You win! Scissors beats Paper.");
-            return 1;
+            announcement.textContent = "You win! Scissors beats Paper.";
+            player.textContent = Number(player.textContent) + 1;
         }
     }
-}
 
-function playGame() {
-
-    // Keep track of scores
-    let humanScore = 0;
-    let computerScore = 0;
-    // Keep track of rounds
-    let round = 0;
-    // Keep track of game state
-    let keepGoing = true;
-
-    // Loop rounds
-    while(keepGoing) {
-        // Display round counter
-        alert(`Round ${++round}`);
-
-        // Get choices
-        const computer = getComputerChoice();
-        const human = getHumanChoice();
-
-        // Get round winner
-        let roundWinner = playRound(human, computer);
-
-        // Update points
-        if (roundWinner === 0) {
-            computerScore++;
-        } else if (roundWinner === 1) {
-            humanScore++;
-        }
-
-        if(computerScore === 3 || humanScore === 3) {
-            keepGoing = false;
-        }
-
-        alert("Scores are human: " + humanScore + " and computer: " + computerScore);
-    }      
-
-    if (humanScore === 3) {
-        alert("Congratulations! You win!");
-    } else {
-        alert("Sorry! You lose!");
+    if(opponent.textContent === "5") {
+        opponent.textContent = "0";
+        player.textContent = "0";
+        announcement.textContent = "Your opponent has won."
+    } else if (player.textContent === "5") {
+        opponent.textContent = "0";
+        player.textContent = "0";
+        announcement.textContent = "Congratulations! You have won!";
     }
 }
